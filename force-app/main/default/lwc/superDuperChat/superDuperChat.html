@@ -1,0 +1,29 @@
+<template>
+
+    <lightning-card title="Super Duper Chat" icon-name="utility:chat">
+
+        <section class="slds-chat">
+            <ul class="slds-chat-list">
+
+                <template for:each={messages} for:item="message">
+                    <c-super-duper-chat-message key={message.id} chat-message={message.text} chat-user={message.user} chat-time={message.time}>
+                    </c-super-duper-chat-message>
+                </template>
+
+            </ul>
+        </section>
+
+        <footer slot="footer">
+            <div class="slds-grid">
+                <div class="slds-col slds-size_11-of-12">
+                    <lightning-input variant="label-hidden" type="text" lwc:ref="messageInput"></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-12">
+                    <lightning-button label="Send" onclick={handleClick}></lightning-button>
+                </div>
+            </div>
+        </footer>
+
+    </lightning-card>
+
+</template>

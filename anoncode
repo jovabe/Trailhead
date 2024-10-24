@@ -1,0 +1,11 @@
+HttpRequest req = new HttpRequest();
+req.setEndpoint('callout:SuperDuperTranslateAPI');
+req.setMethod('POST');
+
+String body = '{"text": "mijn macbook is 4 jaar oud. ook met top bar. ","sourceLanguage": "auto","targetLanguage": "en"}';
+
+req.setBody(body);
+
+Http http = new Http();
+HTTPResponse res = http.send(req);
+System.debug('\n\n' + res.getBody() + '\n\n');

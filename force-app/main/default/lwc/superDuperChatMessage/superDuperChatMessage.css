@@ -1,0 +1,4 @@
+.superduper-chat-message-translated {
+  border: 1px solid var(--slds-g-color-palette-orange-65, #F38303);
+  /* https://www.lightningdesignsystem.com/accessibility/global-color-styling-hooks/ */
+}
