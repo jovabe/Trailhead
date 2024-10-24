@@ -2,21 +2,23 @@
 
     <lightning-card title="Super Duper Chat" icon-name="utility:chat">
 
-        <section class="slds-chat">
-            <ul class="slds-chat-list">
+        <div class="height-vh slds-scrollable_y">
+            <section class="slds-chat">
+                <ul class="slds-chat-list">
 
-                <template for:each={messages} for:item="message">
-                    <c-super-duper-chat-message 
-                        key={message.id} 
-                        chat-message={message.text} 
-                        chat-user={message.user} 
-                        chat-time={message.time}
-                        chat-message-type={message.type}>
-                    </c-super-duper-chat-message>
-                </template>
+                    <template for:each={messages} for:item="message">
+                        <c-super-duper-chat-message 
+                            key={message.id} 
+                            chat-message={message.text} 
+                            chat-user={message.user} 
+                            chat-time={message.time}
+                            chat-message-type={message.type}>
+                        </c-super-duper-chat-message>
+                    </template>
 
-            </ul>
-        </section>
+                </ul>
+            </section>
+        </div>
 
         <footer slot="footer">
             <div class="slds-grid">
