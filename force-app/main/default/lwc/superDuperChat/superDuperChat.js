@@ -2,22 +2,7 @@ import { LightningElement, track } from 'lwc';
 
 export default class Chat extends LightningElement {
 
-    @track messages = [];
-
-    // messages = [
-    //     {
-    //         user: 'Joris',
-    //         text: 'Bonjour',
-    //         time: '11:20AM',
-    //     },
-    //     {
-    //         user: 'Joris',
-    //         text: 'Jai une probleme avec mon produit',
-    //         time: '11:21AM',
-    //     }
-    // ];
-
-    // {user: 'Joris',text: 'Bonjour',time: '11:20AM'}
+    @track messages = []; // {type: 'outbound', user: 'Agent', text: 'Bonjour', time: '01/01/2024, 11:59:59'}
 
     connectedCallback() {
         let counter = 1;
@@ -31,7 +16,8 @@ export default class Chat extends LightningElement {
 
     handleClick(event) {
         this.messages.push({
-            user: 'Guest',
+            type: 'outbound',
+            user: 'Agent',
             text: this.refs.messageInput.value,
             time: new Date().toLocaleString()
         });

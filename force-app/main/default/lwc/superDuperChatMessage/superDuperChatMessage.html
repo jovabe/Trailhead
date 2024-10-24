@@ -1,19 +1,19 @@
 <template>
 
-    <li class="slds-chat-listitem slds-chat-listitem_inbound">
+    <li class={chatListItemCSS}>
         <div class="slds-chat-message">
             <div class="slds-chat-message__body">
-                <div class="slds-chat-message__text slds-chat-message__text_inbound">
+                <div class={chatMessageTextCSS}>
                     <span>{chatMessage}</span>
                 </div>
             </div>
         </div>
     </li>
-    <li class="slds-chat-listitem slds-chat-listitem_inbound">
+    <li class={chatListItemCSS}>
         <div class="slds-chat-message">
             <div class="slds-chat-message__body">
-                <div class="slds-chat-message__text slds-chat-message__text_inbound superduper-chat-message-translated">
-                    <span>{translatedChatMessage}</span>
+                <div class={chatMessageTextTranslatedCSS}>
+                    <span>{chatMessageTranslated}</span>
                 </div>
                 <div class="slds-chat-message__meta" aria-label="said {chatUser} at {chatTime}">{chatUser} • {chatTime}</div>
             </div>
