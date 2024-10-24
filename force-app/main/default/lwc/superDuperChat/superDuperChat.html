@@ -1,6 +1,6 @@
 <template>
-    <lightning-conversation-toolkit-api>
-    </lightning-conversation-toolkit-api>
+    <c-super-duper-chat-miaw onendusermessage={handleEndUserMessage}>
+    </c-super-duper-chat-miaw>
 
     <lightning-card title="Super Duper Chat" icon-name="utility:chat">
 
@@ -28,7 +28,7 @@
                     <lightning-input variant="label-hidden" type="text" lwc:ref="messageInput"></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-12">
-                    <lightning-button label="Send" onclick={handleClick}></lightning-button>
+                    <lightning-button label="Send" onclick={handleSendAgentMessage}></lightning-button>
                 </div>
             </div>
         </footer>
