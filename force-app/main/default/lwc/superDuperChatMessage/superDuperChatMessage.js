@@ -32,7 +32,7 @@ export default class SuperDuperChatMessage extends LightningElement {
 
     get chatMessageTextCSS() {
         if (this.chatMessageType === 'outbound') {
-            return 'slds-chat-message__text slds-chat-message__text_outbound-agent';
+            return 'slds-chat-message__text slds-chat-message__text_outbound';
         } else {
             return 'slds-chat-message__text slds-chat-message__text_inbound';
         }
@@ -40,7 +40,7 @@ export default class SuperDuperChatMessage extends LightningElement {
 
     get chatMessageTextTranslatedCSS() {
         if (this.chatMessageType === 'outbound') {
-            return 'slds-chat-message__text slds-chat-message__text_outbound-agent superduper-chat-message-translated';
+            return 'slds-chat-message__text slds-chat-message__text_outbound superduper-chat-message-translated';
         } else {
             return 'slds-chat-message__text slds-chat-message__text_inbound superduper-chat-message-translated';
         }
