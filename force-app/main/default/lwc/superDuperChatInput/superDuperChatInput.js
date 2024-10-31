@@ -17,7 +17,7 @@ export default class SuperDuperChatInput extends LightningElement {
         try {
             // Temporary message until the translated message is received from the server
             this.isTranslated = true;
-            this.translatedMeta = '';
+            this.translatedMeta = '? → ?';
             this.translatedMessage = '...';
 
             // Create request for the translate API

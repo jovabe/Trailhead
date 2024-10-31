@@ -21,7 +21,7 @@ export default class superDuperChatMiaw extends LightningElement {
     ConversationAgentSendChannelSubscription = null;
 
     // Conversation meta
-    recordId;
+    @api recordId;
 
     // To pass scope, you must get a message context.
     @wire(MessageContext)
@@ -65,7 +65,7 @@ export default class superDuperChatMiaw extends LightningElement {
 
     // Handler for message received by component
     handleEndUserMessage(message) {
-        console.log(`ConvToolkit: handleEndUserMessage: ${message}`);
+        console.log(`ConvToolkit: handleEndUserMessage: ${JSON.stringify(message)}`);
         this.recordId = message.recordId;
         let endUserMessageEvent = new CustomEvent('endusermessage', {
             detail: message
@@ -75,7 +75,7 @@ export default class superDuperChatMiaw extends LightningElement {
 
     // Handler for message received by component
     handleAgentMessage(message) {
-        console.log(`ConvToolkit: handleAgentMessage: ${message}`);
+        console.log(`ConvToolkit: handleAgentMessage: ${JSON.stringify(message)}`);
         this.recordId = message.recordId;
         let agentMessageEvent = new CustomEvent('agentmessage', {
             detail: message
@@ -88,10 +88,15 @@ export default class superDuperChatMiaw extends LightningElement {
     async sendMessage(message) {
         console.log(`ConvToolkit: sendTextMessage: ${message}`);
         const ConversationToolkit = this.template.querySelector('lightning-conversation-toolkit-api');
-        const sendTextMessageResult = await ConversationToolkit.sendTextMessage(
-            this.recordId,
-            {text: message}
-        );
+        try {
+            const sendTextMessageResult = await ConversationToolkit.sendTextMessage(
+                this.recordId,
+                {text: message}
+            );
+            console.log(`ConvToolkit: sendTextMessage: Result: ${sendTextMessageResult}`);
+        } catch (error) {
+            console.log(`ConvToolkit: sendTextMessage: Error: ${JSON.stringify(error)}`);
+        }
     }
     
 }
