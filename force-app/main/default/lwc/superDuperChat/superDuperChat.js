@@ -2,12 +2,16 @@ import { LightningElement, api, track } from 'lwc';
 
 export default class SuperDuperChat extends LightningElement {
 
+    @api recordId;
     @track messages = []; // {type: 'outbound', user: 'Agent', text: 'Bonjour', time: '01/01/2024, 11:59:59'}
     language = 'en';
-    recordId = '';
 
     connectedCallback() {
         this.populateMessagesId();
+    }
+
+    renderedCallback() {
+        this.refs.scrollToBottom.scrollIntoView();
     }
 
     populateMessagesId() {
@@ -21,7 +25,6 @@ export default class SuperDuperChat extends LightningElement {
     }
 
     handleEndUserMessage(event) {
-        this.recordId = event.detail.recordId;
         this.messages.push({
             type: 'inbound',
             user: event.detail.name,
@@ -32,7 +35,6 @@ export default class SuperDuperChat extends LightningElement {
     }
 
     handleAgentMessage(event) {
-        this.recordId = event.detail.recordId;
         this.messages.push({
             type: 'outbound',
             user: event.detail.name,
@@ -42,25 +44,14 @@ export default class SuperDuperChat extends LightningElement {
         event.stopPropagation();
     }
 
-    handleSendAgentMessage(event) {
-        /*
-        this.messages.push({
-            type: 'outbound',
-            user: 'Agent',
-            text: this.refs.messageInput.value,
-            time: new Date().toLocaleString()
-        });
-        */
-        console.log(`handleSendAgentMessage: ${this.refs.messageInput.value}`);
-        const miaw = this.template.querySelector('c-super-duper-chat-miaw');
-        miaw.sendMessage(this.refs.messageInput.value);
-        this.refs.messageInput.value = undefined;
-    }
-
     handleLanguageChange(event) {
-        console.log(`handleLanguageChange: ${JSON.stringify(event.detail)}`);
         this.language = event.detail;
         event.stopPropagation();
+    }
+
+    handleSendAgentMessage(event) {
+        const miaw = this.template.querySelector('c-super-duper-chat-miaw');
+        miaw.sendMessage(event.detail);
     }
 
 }

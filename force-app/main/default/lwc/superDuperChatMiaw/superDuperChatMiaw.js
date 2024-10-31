@@ -65,6 +65,7 @@ export default class superDuperChatMiaw extends LightningElement {
 
     // Handler for message received by component
     handleEndUserMessage(message) {
+        console.log(`ConvToolkit: handleEndUserMessage: ${message}`);
         this.recordId = message.recordId;
         let endUserMessageEvent = new CustomEvent('endusermessage', {
             detail: message
@@ -74,6 +75,7 @@ export default class superDuperChatMiaw extends LightningElement {
 
     // Handler for message received by component
     handleAgentMessage(message) {
+        console.log(`ConvToolkit: handleAgentMessage: ${message}`);
         this.recordId = message.recordId;
         let agentMessageEvent = new CustomEvent('agentmessage', {
             detail: message
@@ -84,14 +86,12 @@ export default class superDuperChatMiaw extends LightningElement {
     // Expose agent send message
     @api 
     async sendMessage(message) {
-        console.log(`sendTextMessage: recordId: ${this.recordId}`);
-        console.log(`sendTextMessage: message: ${message}`);
+        console.log(`ConvToolkit: sendTextMessage: ${message}`);
         const ConversationToolkit = this.template.querySelector('lightning-conversation-toolkit-api');
         const sendTextMessageResult = await ConversationToolkit.sendTextMessage(
             this.recordId,
             {text: message}
         );
-        console.log(`sendTextMessage: result: ${sendTextMessageResult}`);
     }
     
 }

@@ -8,6 +8,8 @@ export default class SuperDuperChatMessage extends LightningElement {
     @api time;
     @api type;
     @api language;
+    isTranslated;
+    translatedMeta;
     translatedMessage;
 
     connectedCallback() {
@@ -16,28 +18,41 @@ export default class SuperDuperChatMessage extends LightningElement {
 
     async invokeGetTranslatedMessage() {
         try {
+            // Temporary message until the translated message is received from the server
+            this.isTranslated = true;
+            this.translatedMeta = '';
             this.translatedMessage = '...';
+
+            // Create request for the translate API
             let translateRequest = {
                 text: this.message,
                 sourceLanguageCode: 'auto',
                 targetLanguageCode: 'en'
             };
-            if (this.type === 'outbound' && this.language) {
-                translateRequest.targetLanguageCode = this.language;
-            }
-            console.log(`language: ${this.language}`);
             console.log(`translateRequest: ${JSON.stringify(translateRequest)}`);
 
+            // Call the translate API to translate the message
             let translateResponse = await getTranslatedMessage({ translateRequest: translateRequest });
             console.log(`translateResponse: ${JSON.stringify(translateResponse)}`);
 
-            this.translatedMessage = translateResponse.translatedText;
+            // Store translated message if the source language was not english
+            if (translateResponse && translateResponse.sourceLanguageCode !== 'en') {
+                this.isTranslated = true;
+                this.translatedMeta = translateResponse.sourceLanguageCode + ' → ' + translateResponse.targetLanguageCode;
+                this.translatedMessage = translateResponse.translatedText;
+            } else {
+                this.isTranslated = false;
+                this.translatedMeta = undefined;
+                this.translatedMessage = undefined;
+            }
+
+            // Store the language of the end user
             if (this.type === 'inbound' && translateResponse && translateResponse.sourceLanguageCode) {
                 this.doLanguageChange(translateResponse.sourceLanguageCode);
             }
 
         } catch (error) {
-            this.translatedMessage = 'An error has occurred.';
+            this.translatedMessage = '???';
             console.log(`error: ${JSON.stringify(error)}`);
         }
     }
@@ -51,26 +66,29 @@ export default class SuperDuperChatMessage extends LightningElement {
     }
 
     get listItemCSS() {
-        if (this.type === 'outbound') {
-            return 'slds-chat-listitem slds-chat-listitem_outbound';
-        } else {
-            return 'slds-chat-listitem slds-chat-listitem_inbound';
+        switch (this.type) {
+            case 'outbound':
+                return 'slds-chat-listitem slds-chat-listitem_outbound';
+            default:
+                return 'slds-chat-listitem slds-chat-listitem_inbound';
         }
     }
 
     get messageTextCSS() {
-        if (this.type === 'outbound') {
-            return 'slds-chat-message__text slds-chat-message__text_outbound';
-        } else {
-            return 'slds-chat-message__text slds-chat-message__text_inbound';
+        switch (this.type) {
+            case 'outbound':
+                return 'slds-chat-message__text slds-chat-message__text_outbound';
+            default:
+                return 'slds-chat-message__text slds-chat-message__text_inbound';
         }
     }
 
     get messageTextTranslatedCSS() {
-        if (this.type === 'outbound') {
-            return 'slds-chat-message__text slds-chat-message__text_outbound superduper-chat-message-translated';
-        } else {
-            return 'slds-chat-message__text slds-chat-message__text_inbound superduper-chat-message-translated';
+        switch (this.type) {
+            case 'outbound':
+                return 'slds-chat-message__text slds-chat-message__text_outbound superduper-chat-message-translated';
+            default:
+                return 'slds-chat-message__text slds-chat-message__text_inbound superduper-chat-message-translated';
         }
     }
 

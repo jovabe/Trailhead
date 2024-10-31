@@ -8,7 +8,6 @@
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">
             <objects>
-                <object>Case</object>
                 <object>MessagingSession</object>
             </objects>
             <supportedFormFactors>

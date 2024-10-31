@@ -6,15 +6,11 @@
                 <div class={messageTextCSS}>
                     <span>{message}</span>
                 </div>
-            </div>
-        </div>
-    </li>
-    <li class={listItemCSS}>
-        <div class="slds-chat-message">
-            <div class="slds-chat-message__body">
-                <div class={messageTextTranslatedCSS}>
-                    <span>{translatedMessage}</span>
-                </div>
+                <template lwc:if={isTranslated}>
+                    <div class={messageTextTranslatedCSS}>
+                        <span>{translatedMeta} • {translatedMessage}</span>
+                    </div>
+                </template>
                 <div class="slds-chat-message__meta" aria-label="said {user} at {time}">{user} • {time}</div>
             </div>
         </div>

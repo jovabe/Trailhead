@@ -1,0 +1,43 @@
+<template>
+
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-1">
+
+            <section class="slds-chat">
+                <ul class="slds-chat-list">
+    
+                    <li class="slds-chat-listitem slds-chat-listitem_outbound">
+                        <div class="slds-chat-message">
+                            <div class="slds-chat-message__body">
+                                <template lwc:if={isTranslated}>
+                                    <div class="slds-chat-message__text slds-chat-message__text_outbound-agent">
+                                        <span>{translatedMeta} • {translatedMessage}</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </li>
+    
+                </ul>
+            </section>
+
+        </div>
+    </div>
+
+    <div class="slds-grid">
+        <div class="slds-col slds-size_3-of-4">
+
+            <lightning-input variant="label-hidden" type="text" placeholder="Reply to message (translated)" lwc:ref="messageInput"></lightning-input>
+        
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+
+            <lightning-button-group>
+                <lightning-button label="Preview" onclick={handlePreviewAgentMessage}></lightning-button>
+                <lightning-button label="Send" onclick={handleSendAgentMessage} disabled={isNotTranslated}></lightning-button>
+            </lightning-button-group>
+        
+        </div>
+    </div>
+
+</template>
