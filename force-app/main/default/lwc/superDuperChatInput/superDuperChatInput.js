@@ -61,6 +61,11 @@ export default class SuperDuperChatInput extends LightningElement {
         this.clearInput();
     }
 
+    handleClearAgentMessage(event) {
+        this.clearTranslation();
+        this.clearInput();
+    }
+
     clearTranslation() {
         this.isTranslated = false;
         this.translatedMeta = undefined;

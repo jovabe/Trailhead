@@ -25,15 +25,16 @@
     </div>
 
     <div class="slds-grid">
-        <div class="slds-col slds-size_3-of-4">
+        <div class="slds-col">
 
             <lightning-input variant="label-hidden" type="text" placeholder="Reply to message (translated)" lwc:ref="messageInput"></lightning-input>
         
         </div>
-        <div class="slds-col slds-size_1-of-4">
+        <div class="slds-col">
 
             <lightning-button-group>
                 <lightning-button label="Preview" onclick={handlePreviewAgentMessage}></lightning-button>
+                <lightning-button label="Clear" onclick={handleClearAgentMessage} disabled={isNotTranslated}></lightning-button>
                 <lightning-button label="Send" onclick={handleSendAgentMessage} disabled={isNotTranslated}></lightning-button>
             </lightning-button-group>
         
