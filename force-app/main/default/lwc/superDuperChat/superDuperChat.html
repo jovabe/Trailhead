@@ -1,7 +1,5 @@
 <template>
-    <c-super-duper-chat-miaw 
-        record-id={recordId}
-        onendusermessage={handleEndUserMessage}
+    <c-super-duper-chat-miaw record-id={recordId} onendusermessage={handleEndUserMessage}
         onagentmessage={handleAgentMessage}>
     </c-super-duper-chat-miaw>
 
@@ -11,18 +9,13 @@
             {recordId} {language}
         </div>
 
-        <div class="height-vh slds-scrollable_y" >
+        <div class="height-half slds-scrollable_y">
             <section class="slds-chat">
                 <ul class="slds-chat-list">
 
                     <template for:each={messages} for:item="message">
-                        <c-super-duper-chat-message 
-                            key={message.id} 
-                            message={message.text} 
-                            user={message.user} 
-                            time={message.time}
-                            type={message.type}
-                            language={language}
+                        <c-super-duper-chat-message key={message.id} message={message.text} user={message.user}
+                            time={message.time} type={message.type} language={language}
                             onlanguagechange={handleLanguageChange}>
                         </c-super-duper-chat-message>
                     </template>
@@ -34,12 +27,13 @@
 
     </lightning-card>
 
-    <lightning-card title="Translated Input" icon-name="utility:textbox" class="slds-has-top-magnet">
+    <!-- <lightning-card title="Translated Input" icon-name="utility:textbox" class="slds-has-top-magnet"> -->
+    <lightning-card class="slds-has-top-magnet">
 
-        <c-super-duper-chat-input 
-            language={language}
-            onsendagentmessage={handleSendAgentMessage}>
-        </c-super-duper-chat-input>
+        <div class="slds-p-around_small">
+            <c-super-duper-chat-input language={language} onsendagentmessage={handleSendAgentMessage}>
+            </c-super-duper-chat-input>
+        </div>
 
     </lightning-card>
 
