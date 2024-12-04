@@ -1,18 +1,32 @@
-# Salesforce DX Project: Next Steps
+# Super Duper Chat
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+## Salesforce Chat
 
-## How Do You Plan to Deploy Your Changes?
+A custom chat component that listens to Messaging for In-App and Web (MIAW) chat activity and translates the incoming messages from both the enduser and the agent. An input text allows you to send out a translated message back to the MIAW chat window.
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+Components:
+* LWC
+  * Custom chat window
+* Apex
+  * Controller class for LWC
+  * Service class to call Amazon Web Service
+* Auth
+  * Named Credential
+  * External Credential
+  * Auth provider
 
-## Configure Your Salesforce DX Project
+## Amazon Translate
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+A webservice that accepts a value and a target language and will return the translation.
 
-## Read All About It
-
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+Components:
+* IAM
+  * Role
+* Cognito
+  * User pool
+  * App client configuration
+* Lambda
+  * Translate
+* API Gateway
+  * Authorizer -> Cognito
+  * Resource -> Lambda -> Translate

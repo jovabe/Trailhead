@@ -4,13 +4,30 @@
     </c-super-duper-chat-miaw>
 
     <lightning-card title="Translated Conversation" icon-name="utility:chat" class="slds-has-bottom-magnet">
+
         <div slot="actions">
-            {language}
+            {recordId} {language}
         </div>
 
         <div class="height-45vh slds-scrollable_y">
             <section class="slds-chat">
                 <ul class="slds-chat-list">
+
+                    <template lwc:if={hasHistory}>
+                        <template for:each={historicalMessages} for:item="historicalMessage">
+                            <c-super-duper-chat-message key={historicalMessage.id} content={historicalMessage.content}
+                                name={historicalMessage.name} timestamp={historicalMessage.timestamp}
+                                type={historicalMessage.type} onlanguagechange={handleLanguageChange}>
+                            </c-super-duper-chat-message>
+                        </template>
+                        <li class="slds-chat-listitem slds-chat-listitem_event">
+                            <div class="slds-chat-event">
+                                <div class="slds-chat-event__body">
+                                    End of historical messages 
+                                </div>
+                            </div>
+                        </li>
+                    </template>
 
                     <template for:each={messages} for:item="message">
                         <c-super-duper-chat-message key={message.id} content={message.content} name={message.name}
@@ -22,13 +39,17 @@
             </section>
             <div lwc:ref="scrollToBottom"></div>
         </div>
+
     </lightning-card>
 
+    <!-- <lightning-card title="Translated Input" icon-name="utility:textbox" class="slds-has-top-magnet"> -->
     <lightning-card class="slds-has-top-magnet">
+
         <div class="slds-var-p-around_small">
             <c-super-duper-chat-input language={language} onsendagentmessage={handleSendAgentMessage}>
             </c-super-duper-chat-input>
         </div>
+
     </lightning-card>
 
 </template>

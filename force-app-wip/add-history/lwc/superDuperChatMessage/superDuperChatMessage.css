@@ -1,0 +1,6 @@
+.superduper-chat-message-translated {
+  /* border: 1px solid var(--slds-g-color-palette-orange-70, #FE9339); */
+  background-color: var(--slds-g-color-palette-orange-70, #FE9339);;
+  margin-top: 0.1rem;
+  /* https://www.lightningdesignsystem.com/accessibility/global-color-styling-hooks/ */
+}

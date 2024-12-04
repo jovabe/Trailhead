@@ -5,28 +5,20 @@ export default class SuperDuperChatInput extends LightningElement {
 
     @api language;
     message;
+    isTranslated;
+    translatedMeta;
     translatedMessage;
 
-    async handleSendAgentMessage(event) {
-        this.message = this.refs.messageInput.value;
-        await this.invokeGetTranslatedMessage();
-        if (this.translatedMessage) {
-            let sendAgentMessageEvent = new CustomEvent('sendagentmessage', {
-                detail: this.translatedMessage
-            });
-            this.dispatchEvent(sendAgentMessageEvent);
-        }
-        this.cleanup();
-    }
-
-    handleClearAgentMessage(event) {
-        this.cleanup();
+    get isNotTranslated() {
+        return !this.isTranslated;
     }
 
     async invokeGetTranslatedMessage() {
         try {
             // Temporary message until the translated message is received from the server
-            this.translatedMessage = undefined;
+            this.isTranslated = true;
+            this.translatedMeta = '? → ?';
+            this.translatedMessage = '...';
 
             // Create request for the translate API
             let translateRequest = {
@@ -42,21 +34,49 @@ export default class SuperDuperChatInput extends LightningElement {
 
             // Store translated message if the source language was not english
             if (translateResponse) {
+                this.isTranslated = true;
+                this.translatedMeta = translateResponse.sourceLanguageCode + ' → ' + translateResponse.targetLanguageCode;
                 this.translatedMessage = translateResponse.translatedText;
             } else {
-                this.cleanup();
+                this.clearTranslation();
             }
 
         } catch (error) {
-            this.translatedMessage = undefined;
+            this.translatedMessage = '???';
             console.log(`error: ${JSON.stringify(error)}`);
         }
     }
 
-    cleanup() {
-        this.refs.messageInput.value = undefined;
+    handlePreviewAgentMessage(event) {
+        this.message = this.refs.messageInput.value;
+        this.invokeGetTranslatedMessage();
+    }
+
+    async handleSendAgentMessage(event) {
+        this.message = this.refs.messageInput.value;
+        await this.invokeGetTranslatedMessage();
+        let sendAgentMessageEvent = new CustomEvent('sendagentmessage', {
+            detail: this.translatedMessage
+        });
+        this.dispatchEvent(sendAgentMessageEvent);
+        this.clearTranslation();
+        this.clearInput();
+    }
+
+    handleClearAgentMessage(event) {
+        this.clearTranslation();
+        this.clearInput();
+    }
+
+    clearTranslation() {
+        this.isTranslated = false;
+        this.translatedMeta = undefined;
         this.translatedMessage = undefined;
         this.message = undefined;
+    }
+
+    clearInput() {
+        this.refs.messageInput.value = undefined;
     }
 
 }

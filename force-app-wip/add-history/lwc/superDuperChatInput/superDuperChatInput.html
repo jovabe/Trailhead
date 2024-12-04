@@ -1,0 +1,46 @@
+<template>
+
+    <lightning-layout pull-to-boundary="small">
+        <lightning-layout-item flexibility="auto" padding="horizontal-small" class="width-100perc">
+
+            <!-- <lightning-input  type="text" placeholder="Reply to message (translated)" lwc:ref="messageInput"></lightning-input> -->
+            <lightning-textarea variant="label-hidden" label="Reply to message (translated)"
+                placeholder="Reply to message (translated)" value="" max-length="1000" lwc:ref="messageInput">
+            </lightning-textarea>
+
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="horizontal-small">
+
+            <lightning-button-group>
+                <lightning-button label="Clear" onclick={handleClearAgentMessage}></lightning-button>
+                <lightning-button label="Send" onclick={handleSendAgentMessage}></lightning-button>
+            </lightning-button-group>
+
+            <!-- <lightning-button-group>
+                <lightning-button label="Preview" onclick={handlePreviewAgentMessage}></lightning-button>
+                <lightning-button label="Clear" onclick={handleClearAgentMessage} disabled={isNotTranslated}></lightning-button>
+                <lightning-button label="Send" onclick={handleSendAgentMessage} disabled={isNotTranslated}></lightning-button>
+            </lightning-button-group> -->
+
+        </lightning-layout-item>
+    </lightning-layout>
+
+    <!-- <section class="slds-chat">
+        <ul class="slds-chat-list">
+
+            <li class="slds-chat-listitem slds-chat-listitem_outbound">
+                <div class="slds-chat-message">
+                    <div class="slds-chat-message__body">
+                        <template lwc:if={isTranslated}>
+                            <div class="slds-chat-message__text slds-chat-message__text_outbound-agent">
+                                <span>{translatedMeta} • {translatedMessage}</span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </section> -->
+
+</template>

@@ -102,5 +102,40 @@ export default class superDuperChatMiaw extends LightningElement {
             console.log(`ConvToolkit: sendTextMessage: Error: ${JSON.stringify(error)}`);
         }
     }
+
+    // Conversation Toolkit API : getConversationLog
+    // Returns contents of the visible Conversation Log. Only returns Text formatted Static Content Messages.
+    // https://developer.salesforce.com/docs/atlas.en-us.api_console.meta/api_console/sforce_api_console_lightning_getConversationLog_lwc.htm
+    @api 
+    async getConversationLog() {
+        console.log(`ConvToolkit: getConversationLog`);
+        const ConversationToolkit = this.template.querySelector('lightning-conversation-toolkit-api');
+        try {
+            const conversationLogResult = await ConversationToolkit.getConversationLog(
+                this.recordId
+            );
+            console.log(`ConvToolkit: getConversationLog: Result: ${JSON.stringify(conversationLogResult)}`);
+            return conversationLogResult;
+        } catch (error) {
+            console.log(`ConvToolkit: getConversationLog: Error: ${JSON.stringify(error)}`);
+        }
+    }
+
+    // Conversation Toolkit API : endConversation
+    // Ends the given conversation record
+    // https://developer.salesforce.com/docs/atlas.en-us.api_console.meta/api_console/sforce_api_console_lightning_endConversation_lwc.htm
+    @api 
+    async endConversation() {
+        console.log(`ConvToolkit: endConversation`);
+        const ConversationToolkit = this.template.querySelector('lightning-conversation-toolkit-api');
+        try {
+            const endConversationResult = await ConversationToolkit.endConversation(
+                this.recordId
+            );
+            console.log(`ConvToolkit: endConversation: Result: ${endConversationResult}`);
+        } catch (error) {
+            console.log(`ConvToolkit: endConversation: Error: ${JSON.stringify(error)}`);
+        }
+    }
     
 }
